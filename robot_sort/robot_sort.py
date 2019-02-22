@@ -1,3 +1,24 @@
+# robot starts with nothing, light on
+# while light on do following:
+# turn light off
+# first move is to swap None with first item
+# then move right
+# compair held item with item at current position
+# if held item is smaller, swap, light on
+# if one item is none, swap, don't turn light on
+# if held item is larger, move right
+# repeat comparison/swap process until can't move right
+# if can't move right and held item is larger, swap
+# light off
+# move left
+# compare items
+# if held item is larger, swap, light on
+# if one item is none, swap, don't turn light on
+# if held item is smaller, move left
+# repeat until can't move left
+# start from step three
+
+
 class SortingRobot:
     def __init__(self, l):
         """
@@ -103,29 +124,25 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
+        self.set_light_on()
         while self.light_is_on():
-            self.set_light_on()
+            self.set_light_off()
             if self.can_move_right():
                 while self.can_move_right():
-                    self.set_light_off()
-                    self._item = self._list[self._position]
+                    if self.compare_item() is None:
+                        self.swap_item()
+                    if self.compare_item() < 1:
+                        self.swap_item()
+                        self.set_light_on()
                     self.move_right()
-                    if self.compare_item():
-                        self.swap_item()
-                        self.set_light_on()
-                    else:
-                        self.move_right()
             else:
-                self.set_light_off()
                 while self.can_move_left():
-                    self.set_light_off
-                    self._item = self._list[self._position]
-                    self.move_left()
-                    if self.compare_item() == -1:
+                    if self.compare_item() is None:
+                        self.swap_item()
+                    if self.compare_item() == 1:
                         self.swap_item()
                         self.set_light_on()
-                    else:
-                        self.move_left()
+                    self.move_left()
 
         return self._list
 
